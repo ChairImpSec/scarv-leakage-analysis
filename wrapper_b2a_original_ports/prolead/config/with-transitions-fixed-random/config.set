@@ -1,0 +1,115 @@
+max_no_of_threads   % maximum number of threads *for parallel operation*
+half
+
+no_of_groups % number of groups to conduct the test, e.g., fixed vs. fixed, fixed vs. random, etc.
+2
+
+64'h$$$$$$$$$$$$$$$$
+64'h0000000024dcf2ac
+
+clock_signal_name    % name of the clock signal
+g_clk
+
+max_clock_cycle   % maximum number of clock cycles per run before checking the end_condition
+17
+
+no_of_always_random_inputs % number of inputs which are fed randomly at every clock cycle
+8
+
+[31:0] z0
+[31:0] z1
+[31:0] z2
+[31:0] z3
+[31:0] z4
+[31:0] z5
+[31:0] z6
+[31:0] z7
+
+no_of_initial_clock_cycles   % number of clock cycles to initiate the run (start of encryption)
+2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESET
+10
+
+g_resetn    1'b0
+valid       1'b0 % must be set to start operations
+flush       1'b1
+
+op_add    1'b0
+op_sub    1'b0
+op_b2a    1'b1
+
+[31:0] rs1_s0 32'h00000000      %RS1 Share 0
+[31:0] rs2_s0 32'h00000000      %RS1 Share 1
+[31:0] rs1_s1 32'h00000000      %RS2 Share 0
+[31:0] rs2_s1 32'h00000000      %RS2 Share 1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% INIT
+7
+
+g_resetn 1'b1
+valid 1'b1
+flush 1'b0
+
+[31:0] rs1_s0 group_in0[31:0]
+[31:0] rs2_s0 group_in0[63:32]
+[31:0] rs1_s1 group_in1[31:0]
+[31:0] rs2_s1 group_in1[63:32]
+
+end_condition    % the condition to check to terminate the simulation (e.g., done signal is high)
+                 % or a numer of clock cycles, e.g., ClockCycles 5
+ready 1'b1
+
+end_wait_cycles   % number of clock cycles to wait after the end_condition
+2                % we could use this instead of 9 cycles wait for ready + one clock cycle
+
+order_of_test % maximum number of probes, i.e., order of test
+1
+
+multivariate_test % no: only univariate test should be done, yes: univariate + multivariate
+no
+
+transitional_leakage % yes/no: whether transitional leakage should be considered in the tests
+yes
+
+compact_distributions % yes/no: whether distributions (of probes) should be considered as compact.
+                      % it is recommended to use 'no' only for small circuits and low security orders
+yes
+
+minimize_probe_sets
+yes
+
+no_of_test_clock_cycles % number of blocks to define clock cycles which should be covered in the tests
+1
+
+1-17      % clock cycles 4, 5, 6
+
+no_of_simulations % total number of simulations (traces) in the tests, should be a factor of 64
+12288000
+%6144000
+%1536000
+%64
+
+no_of_step_simulations % number of simulations in each step, should be a factor of 64, and a divisor of no_of_simulations
+128000
+%64
+
+no_of_step_write_results % number of simulations in each step that result files are written,
+                         % should be a factor of 64, and a divisor of no_of_simulations and
+                         % should be a factor of no_of_step_simulations
+128000
+%64
+
+no_of_entries_in_report
+32
+
+probes_include   % those wires which should be included for probing (all : to include them all, 0 : to include none, e.g., 2 : to inlcude two and name them)
+all
+
+probes_exclude   % those wires which should be exclused for probing (all : to exclude them all, 0 : to exclude none, e.g., 2 : to exclude two and name them)
+0
+
+waveform_simulation
+no

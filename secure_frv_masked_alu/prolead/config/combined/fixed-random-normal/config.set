@@ -1,0 +1,239 @@
+max_no_of_threads   % maximum number of threads *for parallel operation*
+half
+
+no_of_groups % number of groups to conduct the test, e.g., fixed vs. fixed, fixed vs. random, etc.
+2
+
+64'h$$$$$$$$$$$$$$$$
+64'h8bcae06c51adb4ca
+
+no_of_outputs
+2
+
+[31:0] rd_s0
+[31:0] rd_s1
+
+expected_output
+
+32'h$$$$$$$$
+32'hda6754a6
+
+
+clock_signal_name    % name of the clock signal
+g_clk
+
+max_clock_cycle   % maximum number of clock cycles per run before checking the end_condition
+22
+
+no_of_always_random_inputs % number of inputs which are fed randomly at every clock cycle
+6
+
+[31:0] z0_in
+[31:0] z1_in
+[31:0] z2_in
+[31:0] z3_in
+[31:0] z4_in
+[31:0] z5_in
+
+no_of_initial_clock_cycles   % number of clock cycles to initiate the run (start of encryption)
+19
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESET
+
+28
+
+g_resetn    1'b0
+valid       1'b0 % must be set to start operations
+flush       1'b1
+
+op_b2a      1'b0
+op_a2b      1'b0
+op_b_mask   1'b0
+op_b_remask 1'b0
+op_a_mask   1'b0
+op_a_remask 1'b0
+op_b_not    1'b0
+op_b_and    1'b0
+op_b_ior    1'b0
+op_b_xor    1'b0
+op_b_add    1'b0
+op_b_sub    1'b0
+op_b_srli   1'b0
+op_b_slli   1'b0
+op_b_rori   1'b0
+op_a_add    1'b0
+op_a_sub    1'b0
+op_f_mul    1'b0
+op_f_aff    1'b0
+op_f_sqr    1'b0
+
+prng_update 1'b1        % Force the PRNG to update. TODO: I think this here is not required!
+
+[31:0] rs1_s0 32'h00000000      %RS1 Share 0
+[31:0] rs2_s0 32'h00000000      %RS1 Share 1
+[31:0] rs1_s1 32'h00000000      %RS2 Share 0
+[31:0] rs2_s1 32'h00000000      %RS2 Share 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AND - 1
+
+8
+g_resetn 1'b1
+valid 1'b1
+flush 1'b0
+op_b_and     1'b1
+
+[31:0] rs1_s0 group_in0[31:0]
+[31:0] rs2_s0 group_in0[63:32]
+[31:0] rs1_s1 group_in1[31:0]
+[31:0] rs2_s1 group_in1[63:32]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AND - 2
+
+1
+op_b_and     1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AND - 3
+
+1
+op_b_and     1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 1
+
+2
+op_b_and     1'b0
+op_b_xor     1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 2
+
+1
+op_b_xor     1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 3
+
+1
+op_b_xor     1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 1
+
+2
+op_b_xor     1'b0
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 1
+
+1
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 2
+
+1
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 3
+
+1
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Remask - 1
+
+2
+op_b_slli    1'b0
+op_b_remask  1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 1
+
+2
+op_b_remask  1'b0
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 2
+
+1
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLL - 3
+
+1
+op_b_slli    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Remask - 1
+
+2
+op_b_slli    1'b0
+op_b_remask  1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 1
+
+2
+op_b_remask 1'b0
+op_b_xor    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 2
+
+1
+op_b_xor    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XOR - 3
+
+1
+op_b_xor    1'b1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+end_condition    % the condition to check to terminate the simulation (e.g., done signal is high)
+                 % or a numer of clock cycles, e.g., ClockCycles 5
+ClockCycles 19
+
+end_wait_cycles   % number of clock cycles to wait after the end_condition
+3
+
+order_of_test % maximum number of probes, i.e., order of test
+1
+
+multivariate_test % no: only univariate test should be done, yes: univariate + multivariate
+no
+
+transitional_leakage % yes/no: whether transitional leakage should be considered in the tests
+yes
+
+compact_distributions % yes/no: whether distributions (of probes) should be considered as compact.
+                      % it is recommended to use 'no' only for small circuits and low security orders
+no
+
+minimize_probe_sets
+yes
+
+no_of_test_clock_cycles % number of blocks to define clock cycles which should be covered in the tests
+1
+
+1-22      % clock cycles 4, 5, 6
+
+no_of_simulations % total number of simulations (traces) in the tests, should be a factor of 64
+6144000
+%1536000
+%64
+
+no_of_step_simulations % number of simulations in each step, should be a factor of 64, and a divisor of no_of_simulations
+128000
+%64
+
+no_of_step_write_results % number of simulations in each step that result files are written,
+                         % should be a factor of 64, and a divisor of no_of_simulations and
+                         % should be a factor of no_of_step_simulations
+128000
+%64
+
+no_of_entries_in_report
+32
+
+probes_exclude   % those wires which should be exclused for probing (all : to exclude them all, 0 : to exclude none, e.g., 2 : to exclude two and name them)
+none
+
+
+probes_include   % those wires which should be included for probing (all : to include them all, 0 : to include none, e.g., 2 : to inlcude two and name them)
+all
+
+waveform_simulation
+no
