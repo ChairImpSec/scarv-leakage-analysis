@@ -2,7 +2,7 @@
 # SCARV Leakage Analysis
 
 This repository contains modified and original files taken from [scarv/scarv-cpu](https://github.com/scarv/scarv-cpu/tree/scarv/xcrypto/masking-ise), which were used to analyze the leakage behavior of the masking-ise of the scarv-cpu.
-The analysis can be found in the paper TODO:LinkToPaper.
+The analysis can be found in the paper Another Evidence to not Employ Customized Masked Hardware - Identifying and Fixing Flaws in SCARV TODO:LinkToPaper.
 
 # Where to start?
 If you're interested in the Verilog code for our version of the SCARV ALU, start with `./secure_frv_masked_alu/src`.
