@@ -5,7 +5,7 @@ This repository contains modified and original files taken from [scarv/scarv-cpu
 The analysis can be found in the paper TODO:LinkToPaper.
 
 # Where to start?
-If you're interested in the Verilog code for our version of the SCARE ALU, start with `./secure_frv_masked_alu/src`.
+If you're interested in the Verilog code for our version of the SCARV ALU, start with `./secure_frv_masked_alu/src`.
 This folder contains all the files relevant to building our non-leaking version of the SCARV ALU.
 Please note that our ALU must be reset after each calculation.
 
